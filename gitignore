@@ -1,2 +1,8 @@
 **/Debug
 results.html
+Project2.vcxproj
+Project2.vcxproj.filters
+Project2.vcproj.user
+boost_debug.props
+boost_x64.props
+boost_x64_release.props
