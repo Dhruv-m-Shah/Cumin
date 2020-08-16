@@ -145,17 +145,19 @@ vector<node*> StatementList(vector<TOKEN> tokened) {
     return results;
 }
 
-vector<vector<node*>> program(vector<TOKEN> tokened, vector<vector<node*>> functions) {
+vector<functionDetails> program(vector<TOKEN> tokened, vector<functionDetails> functions) {
     myindex = 0;
     while (myindex < tokened.size()) {
         if (tokened[myindex].token == "function") {
             myindex += 3; // Skip the function name and start
             cout << myindex << " " << "TEST" << endl;
-            functions.push_back(StatementList(tokened));
+            functionDetails func = {StatementList(tokened)};
+            functions.push_back(func);
         }
         if (tokened[myindex].token == "start") {
             myindex++;
-            functions.push_back(StatementList(tokened));
+            functionDetails func = { StatementList(tokened) };
+            functions.push_back(func);
         }
     }
     return functions;

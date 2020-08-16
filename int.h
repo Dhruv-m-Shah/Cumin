@@ -13,7 +13,7 @@ public:
     long long val;
 };
 int test1();
-void CompoundStatement(std::vector<std::vector<node*>>);
+void CompoundStatement(std::vector<functionDetails>);
 
 
 

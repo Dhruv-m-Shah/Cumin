@@ -111,7 +111,7 @@ string FindName(string id) {
     }
 }
 
-string interpreter_string(node* AST) {
+string interpreter_string(node* AST, functionDetails *statements) {
     if ((AST->val).type == "DECIMAL") {
         cerr << "DECIMAL type cannot be assigned or operated with STRING type" << endl;
         exit(EXIT_FAILURE);
@@ -124,11 +124,11 @@ string interpreter_string(node* AST) {
         return (AST->val).token;
     }
     if ((AST->val).type == "ID") {
-        return strings[(AST->val).token];
+        return statements->strings[(AST->val).token];
     }
 
-    string leftVal = interpreter_string(AST->left);
-    string rightVal = interpreter_string(AST->right);
+    string leftVal = interpreter_string(AST->left, statements);
+    string rightVal = interpreter_string(AST->right, statements);
 
     if ((AST->val).token == "+") {
         return leftVal + rightVal;
@@ -136,7 +136,7 @@ string interpreter_string(node* AST) {
 }
 
 
-cpp_dec_float_50 interpreter_floating(node* AST) {
+cpp_dec_float_50 interpreter_floating(node* AST, functionDetails *statements) {
     if ((AST->val).type == "STRING") {
         cerr << "STRING type cannot be assigned or operated with DECIMAL type" << endl;
         exit(EXIT_FAILURE);
@@ -150,31 +150,31 @@ cpp_dec_float_50 interpreter_floating(node* AST) {
     }
     if (AST->unary) {
         if ((AST->val).token == "+") {
-            return interpreter_floating(AST->left);
+            return interpreter_floating(AST->left, statements);
         }
         else {
-            return cpp_dec_float_50(-1) * interpreter_floating(AST->left);
+            return cpp_dec_float_50(-1) * interpreter_floating(AST->left, statements);
         }
     }
     if ((AST->val).type == "ID") {
-        return decimals[(AST->val).token];
+        return statements->decimals[(AST->val).token];
     }
     if ((AST->val).token == "=") {
         if ((AST->right->val).type == "NUM") {
             // ENTER ERROR MESSAGE HERE.
         }
         if ((AST->right->val).type == "STRING") {
-            strings[(AST->left->val).token] = (AST->right->val).token; // Assignment for strings.
+            statements->strings[(AST->left->val).token] = (AST->right->val).token; // Assignment for strings.
             return -1;
         }
         else {
-            decimals[(AST->left->val).token] = interpreter_floating(AST->right);
-            return decimals[(AST->left->val).token];
+            statements->decimals[(AST->left->val).token] = interpreter_floating(AST->right, statements);
+            return  statements->decimals[(AST->left->val).token];
         }
     }
 
-    cpp_dec_float_50 leftVal = interpreter_floating(AST->left);
-    cpp_dec_float_50 rightVal = interpreter_floating(AST->right);
+    cpp_dec_float_50 leftVal = interpreter_floating(AST->left, statements);
+    cpp_dec_float_50 rightVal = interpreter_floating(AST->right, statements);
 
     if ((AST->val).token == "+") {
         return leftVal + rightVal;
@@ -190,7 +190,7 @@ cpp_dec_float_50 interpreter_floating(node* AST) {
     }
 }
 
-cpp_int interpreter(node* AST) {
+cpp_int interpreter(node* AST, functionDetails *statements) {
     if ((AST->val).type == "STRING") {
         cerr << "string type cannot be assigned or operated with NUM type" << endl;
         exit(EXIT_FAILURE);
@@ -204,38 +204,38 @@ cpp_int interpreter(node* AST) {
     }
     if (AST->unary) {
         if ((AST->val).token == "+") {
-            return interpreter(AST->left);
+            return interpreter(AST->left, statements);
         }
         else {
-            return cpp_int(-1) * interpreter(AST->left);
+            return cpp_int(-1) * interpreter(AST->left, statements);
         }
     }
     if ((AST->val).type == "ID") {
-        if (numbers.count((AST->val).token) == 0) {
+        if (statements->numbers.count((AST->val).token) == 0) {
             cerr << "Variable " + (AST->val).token + " was not declared\n" << endl;
             exit(EXIT_FAILURE);
         }
-        return numbers[(AST->val).token];
+        return statements->numbers[(AST->val).token];
     }
     if ((AST->val).token == "=") {
         string whatType = FindType((AST->left->val).token);
         string varName = FindName((AST->left->val).token);
         if (whatType == "flo") {
-            decimals[varName] = interpreter_floating(AST->right);
+            statements->decimals[varName] = interpreter_floating(AST->right, statements);
             return cpp_int(-1);
         }
         if (whatType == "str") {
-            strings[varName] = interpreter_string(AST->right); // Assignment for strings.
+            statements->strings[varName] = interpreter_string(AST->right, statements); // Assignment for strings.
             return cpp_int(-1);
         }
         else { // Otherwise its a number.
-            numbers[varName] = interpreter(AST->right);
-            return  numbers[varName];
+            statements->numbers[varName] = interpreter(AST->right, statements);
+            return  statements->numbers[varName];
         }
     }
 
-    cpp_int leftVal = interpreter(AST->left);
-    cpp_int rightVal = interpreter(AST->right);
+    cpp_int leftVal = interpreter(AST->left, statements);
+    cpp_int rightVal = interpreter(AST->right, statements);
 
     if ((AST->val).token == "+") {
         return leftVal + rightVal;
@@ -251,11 +251,12 @@ cpp_int interpreter(node* AST) {
     }
 }
 
-void CompoundStatement(vector<vector<node*>> statement_list) {
+void CompoundStatement(vector<functionDetails> statement_list) {
     cout << (statement_list.size()) << "TEST" << endl;
-    for (long long i = 0; i < statement_list[0].size(); i++) {
-        interpreter(statement_list[0][i]);
+    for (long long i = 0; i < statement_list[0].statements.size(); i++) {
+        interpreter(statement_list[0].statements[i], &statement_list[0]);
     }
+    cout << statement_list[0].numbers["x"]<< endl;
 }
 
 

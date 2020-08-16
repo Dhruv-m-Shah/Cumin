@@ -117,6 +117,7 @@ string RemoveWhitespace(string input, long long length) {
 }
 
 void tokenize(string input, vector<TOKEN> tokened) {
+    string scope = "GLOBAL"; // Inital scope is set globally.
     map<string, long long> functionMapper;
     long long functionCount = 0;
     input = RemoveWhitespace(input, input.length());
@@ -189,12 +190,16 @@ void tokenize(string input, vector<TOKEN> tokened) {
                     break;
                 }
                 if (IsStartStatement(special.token)) {
+                    if (index - 1 >= 0 && tokened.size() > 0 && tokened[index - 1].type == "FUNCTIONNAME") {
+                        scope = tokened[index - 1].token;
+                    }
                     tokened.push_back({ "START", special.token });
                     index++;
                     break;
                 }
                 if (IsEndStatement(special.token)) {
                     tokened.push_back({ "ENDSTATEMENT", special.token });
+                    scope = "GLOBAL";
                     index++;
                     break;
                 }
@@ -206,7 +211,7 @@ void tokenize(string input, vector<TOKEN> tokened) {
                 if (IsBracket(s)) { // () <- round brackets
                     if (s == ")") {
                         if (special.token.size() != 0) {
-                            tokened.push_back({ "ID", special.token });
+                            tokened.push_back({ "ID", special.token, scope});
                             break;
                         }
                     }
@@ -228,20 +233,20 @@ void tokenize(string input, vector<TOKEN> tokened) {
                         index++;
                     }
                     else {
-                        tokened.push_back({ "ID", special.token });
+                        tokened.push_back({ "ID", special.token, scope});
                         index++;
                     }
                     break;
                 }
                 if (index + 1 < input.size() && (IsOperator(string() + input[index + 1]) || IsEnd(string() + input[index + 1]))) {
-                    tokened.push_back({ "ID", special.token });
+                    tokened.push_back({ "ID", special.token, scope});
                     index++;
                     break;
                 }
 
 
                 if (index + 1 < input.size() && IsAssignment(string() + input[index + 1])) {
-                    tokened.push_back({ "ID", special.token });
+                    tokened.push_back({ "ID", special.token, scope });
                     tokened.push_back({ "ASSIGN", string() + input[index + 1] });
                     index += 2;
                     break;
@@ -257,7 +262,7 @@ void tokenize(string input, vector<TOKEN> tokened) {
     // start
     //  x = 2.
     // end
-    vector<vector<node*>> functions;
+    vector<functionDetails> functions;
     CompoundStatement(program(tokened, functions));
 }
 
