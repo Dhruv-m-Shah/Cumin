@@ -265,9 +265,11 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
 }
 
 void CompoundStatement(vector<functionDetails> statement_list) {
-    cout << (statement_list.size()) << "TEST" << endl;
-    for (long long i = 0; i < statement_list[0].statements.size(); i++) {
-        interpreter(statement_list[0].statements[i], &statement_list[0]);
+    cout << (statement_list.size()) << "TEST2" << endl;
+    for (long long j = 0; j < statement_list.size(); j++) {
+        for (long long i = 0; i < statement_list[j].statements.size(); i++) {
+            interpreter(statement_list[j].statements[i], &statement_list[j]);
+        }
     }
     for (long long i = 0; i < statement_list[0].statements.size(); i++) {
         deleteAST(statement_list[0].statements[i]);
