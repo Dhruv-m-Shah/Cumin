@@ -19,8 +19,21 @@ map<string, string> strings;
 map<string, cpp_dec_float_50> decimals;
 std::vector<int> test;
 
-int test1() {
-    return 1;
+void deleteAST(node* AST) {
+    if (AST == NULL) {
+        return;
+    }
+    if (AST->left == NULL && AST->right == NULL) {
+        delete AST;
+        return;
+    }
+    if (AST->left != NULL) {
+        deleteAST(AST->left);
+    }
+    if (AST->right != NULL) {
+        deleteAST(AST->right);
+    }
+    delete AST;
 }
 
 long long ConvertToInt(string integer) {
@@ -256,7 +269,8 @@ void CompoundStatement(vector<functionDetails> statement_list) {
     for (long long i = 0; i < statement_list[0].statements.size(); i++) {
         interpreter(statement_list[0].statements[i], &statement_list[0]);
     }
-    cout << statement_list[0].numbers["x"]<< endl;
+    for (long long i = 0; i < statement_list[0].statements.size(); i++) {
+        deleteAST(statement_list[0].statements[i]);
+    }
+    
 }
-
-

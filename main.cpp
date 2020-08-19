@@ -6,6 +6,7 @@
 #include <Poco/Net/HTTPServerRequest.h>
 #include <Poco/Net/HTTPServerResponse.h>
 #include <Poco/Util/ServerApplication.h>
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -61,7 +62,7 @@ class MyServerApp : public ServerApplication
 protected:
     int main(const vector<string>&)
     {
-        HTTPServer s(new MyRequestHandlerFactory, ServerSocket(9090), new HTTPServerParams);
+        HTTPServer s(new MyRequestHandlerFactory, ServerSocket(ServerSocket(SocketAddress(getenv("serverPath"), 9090))), new HTTPServerParams);
 
         s.start();
         cout << endl << "Server started" << endl;

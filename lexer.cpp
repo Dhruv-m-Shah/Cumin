@@ -123,6 +123,7 @@ void tokenize(string input, vector<TOKEN> tokened) {
     input = RemoveWhitespace(input, input.length());
     int index = 0;
     while (index < input.size()) {
+        DisplayToken(tokened);
         string s(1, input[index]);
         if (IsEnd(s)) { // End of a statement
             TOKEN ended = { "END", "?" };
@@ -190,8 +191,8 @@ void tokenize(string input, vector<TOKEN> tokened) {
                     break;
                 }
                 if (IsStartStatement(special.token)) {
-                    if (index - 1 >= 0 && tokened.size() > 0 && tokened[index - 1].type == "FUNCTIONNAME") {
-                        scope = tokened[index - 1].token;
+                    if (index - 3 >= 0 && tokened.size() >= 3 && tokened[tokened.size() - 3].type == "FUNCTIONNAME") {
+                        scope = tokened[tokened.size() - 3].token;
                     }
                     tokened.push_back({ "START", special.token });
                     index++;
@@ -209,12 +210,6 @@ void tokenize(string input, vector<TOKEN> tokened) {
                     break;
                 }
                 if (IsBracket(s)) { // () <- round brackets
-                    if (s == ")") {
-                        if (special.token.size() != 0) {
-                            tokened.push_back({ "ID", special.token, scope});
-                            break;
-                        }
-                    }
                     if (s == "(") {
                         if (tokened[tokened.size() - 1].token == "function") {
                             tokened.push_back({ "FUNCTIONNAME", special.token });
