@@ -112,7 +112,6 @@ string RemoveWhitespace(string input, long long length) {
             newString = newString + (input[i] + string());
         }
     }
-    cout << newString << endl;
     return newString;
 }
 
@@ -146,7 +145,6 @@ void tokenize(string input, vector<TOKEN> tokened) {
             tokened.push_back(digit);
         }
         else if (IsOperator(s)) { // Operators
-            cout << "TEST" << endl;
             TOKEN ops = { "OPERATOR", s };
 
             while (index < input.size() && IsOperator(s)) {
@@ -170,7 +168,6 @@ void tokenize(string input, vector<TOKEN> tokened) {
             tokened.push_back(assignment);
         }
         else if (s == "\"") { // Strings
-            cout << "HELLO" << endl;
             TOKEN stringInput = { "STRING", "" };
             index++;
             s = string() + input[index];

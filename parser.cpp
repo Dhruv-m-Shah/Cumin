@@ -150,19 +150,15 @@ vector<functionDetails> program(vector<TOKEN> tokened, vector<functionDetails> f
     while (myindex < tokened.size()) {
         if (tokened[myindex].token == "function") {
             myindex += 5; // Skip the function name and start
-            cout << "TEST1" << endl;
             functionDetails func = {StatementList(tokened)};
-            cout << myindex << endl;
             functions.push_back(func);
         }
         if (myindex >= tokened.size()) {
             break;
         }
         if (tokened[myindex].token == "start") {
-            cout << "TEST1" << endl;
             myindex++;
             functionDetails func = { StatementList(tokened) };
-            cout << myindex << endl;
             functions.push_back(func);
         }
     }
