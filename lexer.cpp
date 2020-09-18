@@ -179,6 +179,12 @@ void tokenize(string input, vector<TOKEN> tokened) {
             tokened.push_back(stringInput);
             index++;
         }
+        else if (s == "[") {
+            while (index < input.size() && (string() + input[index]) != "]") {
+                index++;
+            }
+            index++;
+        }
         else { // Is a reserved keyword or ID variable.
             TOKEN special = { "SPECIAL", s };
             while (index < input.size()) {

@@ -268,6 +268,7 @@ void CompoundStatement(vector<functionDetails> statement_list) {
     for (long long j = 0; j < statement_list.size(); j++) {
         for (long long i = 0; i < statement_list[j].statements.size(); i++) {
             interpreter(statement_list[j].statements[i], &statement_list[j]);
+            cout << statement_list[j].numbers["y"] << endl;
         }
     }
     for (long long i = 0; i < statement_list[0].statements.size(); i++) {
