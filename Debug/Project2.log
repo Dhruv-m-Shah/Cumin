@@ -1,14 +1,33 @@
-﻿  main.cpp
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(28,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(29,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(30,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(56,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(59,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(62,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(65,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(68,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(71,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(74,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(77,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(80,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+﻿  parser.cpp
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(19,28): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(26,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(27,32): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(33,22): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(34,32): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(40,22): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(43,21): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(48,22): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(54,32): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(63,49): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(63,82): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(65,30): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(66,21): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(86,49): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(86,82): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(88,30): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(89,21): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(106,28): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(109,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(111,29): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(124,28): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(126,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(128,29): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(139,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(142,22): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(150,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(157,48): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(159,21): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(171,21): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(179,21): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\parser.cpp(58): warning C4715: 'factor': not all control paths return a value
   Project2.vcxproj -> C:\Users\shahd\source\repos\Project2\Debug\Project2.exe

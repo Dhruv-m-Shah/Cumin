@@ -63,7 +63,7 @@ node* term(vector<TOKEN> tokened) {
     while (myindex < tokened.size() && (tokened[myindex].token == "*" || tokened[myindex].token == "/")) {
         marker = 1;
         TOKEN temp = tokened[myindex];
-        if (tokened[myindex].token == "*") {
+        if (tokened[myindex].token == "*") { // This if else seems redundant, please refactor.
             myindex++;
         }
         else {
@@ -101,6 +101,23 @@ node* expr(vector<TOKEN> tokened) {
     return current;
 }
 
+node* Print(vector<TOKEN> tokened) {
+    node* current = new node();
+    current->val = tokened[myindex];
+    myindex += 2; // Skips the ( token too.
+    
+    if (tokened[myindex].type == "STRING") {
+        node* temp = new node();
+        temp->val = tokened[myindex];
+        temp->right = NULL;
+        temp->left = NULL;
+        current->right = temp;
+    }
+    current->right = expr(tokened);
+    myindex++;
+    return current;
+}
+
 node* Assignment(vector<TOKEN> tokened) {
     node* current = new node();
     current->left = Variable(tokened);
@@ -119,7 +136,10 @@ node* Assignment(vector<TOKEN> tokened) {
 
 node* Statement(vector<TOKEN> tokened) {
     node* current = new node();
-    if (tokened[myindex].type == "ID") {
+    if (tokened[myindex].type == "PRINT") {
+        current = Print(tokened);
+    }
+    else if (tokened[myindex].type == "ID") {
         current = Assignment(tokened);
     }
     return current;

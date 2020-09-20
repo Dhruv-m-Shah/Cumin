@@ -188,6 +188,11 @@ void tokenize(string input, vector<TOKEN> tokened) {
         else { // Is a reserved keyword or ID variable.
             TOKEN special = { "SPECIAL", s };
             while (index < input.size()) {
+                if (special.token == "print") {
+                    tokened.push_back({ "PRINT", special.token });
+                    index++;
+                    break;
+                }
                 if (IsFunction(special.token)) {
                     tokened.push_back({ "FUNCTION", special.token });
                     index++;

@@ -212,6 +212,11 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         cerr << "decimal type cannot be assigned or operated with NUM type" << endl;
         exit(EXIT_FAILURE);
     }
+    if ((AST->val).type == "PRINT") {
+        auto toPrint = interpreter(AST->right, statements);
+        cout << toPrint << endl; // cout here for testing purposes, there needs to be a cout stream, to store outputs.
+        return cpp_int(-1); // Return nothing, invalid value.
+    }
     if ((AST->val).type == "NUM") {
         return cpp_int((AST->val).token);
     }
@@ -265,10 +270,10 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
 }
 
 void CompoundStatement(vector<functionDetails> statement_list) {
+    cout << "TEST" << endl;
     for (long long j = 0; j < statement_list.size(); j++) {
         for (long long i = 0; i < statement_list[j].statements.size(); i++) {
             interpreter(statement_list[j].statements[i], &statement_list[j]);
-            cout << statement_list[j].numbers["y"] << endl;
         }
     }
     for (long long i = 0; i < statement_list[0].statements.size(); i++) {
