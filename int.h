@@ -4,7 +4,12 @@
 #include "parser.h"
 #include <string>
 #include <vector>
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_dec_float.hpp>
 
+
+using boost::multiprecision::cpp_int;
+using boost::multiprecision::cpp_dec_float_50;
 
 class vars {
 public:
@@ -12,7 +17,13 @@ public:
     std::string sVal;
     long long val;
 };
-int test1();
+class output {
+public:
+    std::vector<cpp_int> integer_output;
+    std::vector<std::string> string_output;
+    std::vector<cpp_dec_float_50> float_output;
+};
+output* output_stream = new output();
 void CompoundStatement(std::vector<functionDetails>);
 
 

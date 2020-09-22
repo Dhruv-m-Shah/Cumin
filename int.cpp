@@ -17,6 +17,8 @@ std::vector<vars> v;
 map<string, cpp_int> numbers;
 map<string, string> strings;
 map<string, cpp_dec_float_50> decimals;
+
+
 std::vector<int> test;
 
 void deleteAST(node* AST) {
@@ -158,6 +160,7 @@ cpp_dec_float_50 interpreter_floating(node* AST, functionDetails *statements) {
         cerr << "NUM type cannot be assigned or operated with DECIMAL type" << endl;
         exit(EXIT_FAILURE);
     }
+
     if ((AST->val).type == "DECIMAL") {
         return cpp_dec_float_50((AST->val).token);
     }
@@ -213,9 +216,41 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         exit(EXIT_FAILURE);
     }
     if ((AST->val).type == "PRINT") {
-        auto toPrint = interpreter(AST->right, statements);
-        cout << toPrint << endl; // cout here for testing purposes, there needs to be a cout stream, to store outputs.
-        return cpp_int(-1); // Return nothing, invalid value.
+        if ((AST->right)->val.type == "ID") {
+            string whatType = FindType((AST->right->val).token);
+            if (whatType == "num") {
+                cpp_int toPrint = interpreter(AST->right, statements);
+                output_stream->string_output.push_back(toPrint);
+            }
+            else if (whatType == "flo") {
+                cpp_dec_float_50 toPrint = interpreter_floating(AST->right, statements);
+                output_stream->string_output.push_back(toPrint);
+            }
+            else if (whatType == "str") {
+                string toPrint = interpreter_string(AST->right, statements);
+                output_stream->string_output.push_back(toPrint);
+            }
+            else { // Unknown type, throw an error, implement when doing error coding.
+
+            }
+
+        }
+        else if ((AST->right)->val.type == "NUM") {
+            cpp_int toPrint = interpreter(AST->right, statements);
+            output_stream->string_output.push_back(toPrint);
+        }
+        else if ((AST->right)->val.type == "DECIMAL") {
+            cpp_dec_float_50 toPrint = interpreter_floating(AST->right, statements);
+            output_stream->string_output.push_back(toPrint);
+        }
+        else if ((AST->right)->val.type == "STRING") {
+            string toPrint = interpreter_string(AST->right, statements);
+            output_stream->string_output.push_back(toPrint);
+        }
+        else { // Unknown type, throw an error, implement when doing error coding.
+
+        }
+        
     }
     if ((AST->val).type == "NUM") {
         return cpp_int((AST->val).token);

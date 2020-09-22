@@ -164,7 +164,6 @@ vector<node*> StatementList(vector<TOKEN> tokened) {
     }
     return results;
 }
-
 vector<functionDetails> program(vector<TOKEN> tokened, vector<functionDetails> functions) {
     myindex = 0;
     while (myindex < tokened.size()) {

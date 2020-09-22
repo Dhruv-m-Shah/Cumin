@@ -26,6 +26,7 @@
 #include "Poco/Util/HelpFormatter.h"
 #include "Poco/Format.h"
 #include "lexer.h";
+#include "int.h";
 #include <iostream>;
 #include<vector>;
 
@@ -137,7 +138,11 @@ public:
 				
 				tokenize(contentLengthStr, temp);
 				app.logger().information(Poco::format("Frame received (length=%d, flags=0x%x).", n, unsigned(flags)));
-				ws.sendFrame("TEST123", n, flags);
+				string outputString = "";
+				for (int i = 0; i < output_stream->string_output.size(); i++) {
+					outputString += output_stream->string_output[i] + " | "; // find a better way to seperate input! URGENT.
+				}
+				ws.sendFrame("outputString", n, flags);
 				break;
 			} while (n > 0 && (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
 			app.logger().information("WebSocket connection closed.");
