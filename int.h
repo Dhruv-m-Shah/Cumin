@@ -17,13 +17,7 @@ public:
     std::string sVal;
     long long val;
 };
-class output {
-public:
-    std::vector<cpp_int> integer_output;
-    std::vector<std::string> string_output;
-    std::vector<cpp_dec_float_50> float_output;
-};
-output* output_stream = new output();
+
 void CompoundStatement(std::vector<functionDetails>);
 
 

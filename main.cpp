@@ -26,7 +26,7 @@
 #include "Poco/Util/HelpFormatter.h"
 #include "Poco/Format.h"
 #include "lexer.h";
-#include "int.h";
+#include "main.h";
 #include <iostream>;
 #include<vector>;
 
@@ -48,6 +48,8 @@ using Poco::Util::Application;
 using Poco::Util::Option;
 using Poco::Util::OptionSet;
 using Poco::Util::HelpFormatter;
+
+outputStr* output_stream1;
 
 
 long long ConvertToInt1(string integer) {
@@ -113,6 +115,7 @@ public:
 		{
 			WebSocket ws(request, response);
 			app.logger().information("WebSocket connection established.");
+			output_stream1 = new outputStr();
 			long long const BUFFER_LEN = 100000;
 			char buffer[100000];
 			int flags;
@@ -120,6 +123,7 @@ public:
 			do
 			{
 				n = ws.receiveFrame(buffer, sizeof(buffer), flags);
+				
 				long long contentLength = 0;
 				string contentLengthStr = "";
 				for (long long i = 0; i <= BUFFER_LEN; i++) {
@@ -139,8 +143,9 @@ public:
 				tokenize(contentLengthStr, temp);
 				app.logger().information(Poco::format("Frame received (length=%d, flags=0x%x).", n, unsigned(flags)));
 				string outputString = "";
-				for (int i = 0; i < output_stream->string_output.size(); i++) {
-					outputString += output_stream->string_output[i] + " | "; // find a better way to seperate input! URGENT.
+				cout << output_stream1->string_output.size() << endl;
+				for (int i = 0; i < output_stream1->string_output.size(); i++) {
+					outputString += output_stream1->string_output[i] + " | "; // find a better way to seperate input! URGENT.
 				}
 				ws.sendFrame("outputString", n, flags);
 				break;

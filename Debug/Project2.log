@@ -3,91 +3,13 @@ C:\Users\shahd\source\repos\Project2\Project2\main.cpp(28,10): warning C4067: un
 C:\Users\shahd\source\repos\Project2\Project2\main.cpp(29,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\shahd\source\repos\Project2\Project2\main.cpp(30,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\shahd\source\repos\Project2\Project2\main.cpp(31,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(57,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(60,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(63,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(66,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(69,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(72,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(75,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(78,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(81,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-  lexer.cpp
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(20,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(100,19): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(104,23): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(108,48): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(112,44): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(124,18): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(135,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(150,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(174,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(183,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(190,26): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(244,31): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\lexer.cpp(251,31): warning C4018: '<': signed/unsigned mismatch
-  int.cpp
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(43,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(45,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(48,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(51,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(54,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(57,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(60,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(63,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(66,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(69,55): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(223,63): error C2664: 'void std::vector<std::string,std::allocator<std::string>>::push_back(_Ty &&)': cannot convert argument 1 from 'boost::multiprecision::cpp_int' to 'const _Ty &'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(223,63): message : Reason: cannot convert from 'boost::multiprecision::cpp_int' to 'const _Ty'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(223,56): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\vector(716,10): message : see declaration of 'std::vector<std::string,std::allocator<std::string>>::push_back'
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(227,63): error C2664: 'void std::vector<std::string,std::allocator<std::string>>::push_back(_Ty &&)': cannot convert argument 1 from 'boost::multiprecision::cpp_dec_float_50' to 'const _Ty &'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(227,63): message : Reason: cannot convert from 'boost::multiprecision::cpp_dec_float_50' to 'const _Ty'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(227,56): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\vector(716,10): message : see declaration of 'std::vector<std::string,std::allocator<std::string>>::push_back'
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(240,59): error C2664: 'void std::vector<std::string,std::allocator<std::string>>::push_back(_Ty &&)': cannot convert argument 1 from 'boost::multiprecision::cpp_int' to 'const _Ty &'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(240,59): message : Reason: cannot convert from 'boost::multiprecision::cpp_int' to 'const _Ty'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(240,52): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\vector(716,10): message : see declaration of 'std::vector<std::string,std::allocator<std::string>>::push_back'
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(244,59): error C2664: 'void std::vector<std::string,std::allocator<std::string>>::push_back(_Ty &&)': cannot convert argument 1 from 'boost::multiprecision::cpp_dec_float_50' to 'const _Ty &'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(244,59): message : Reason: cannot convert from 'boost::multiprecision::cpp_dec_float_50' to 'const _Ty'
-          with
-          [
-              _Ty=std::string
-          ]
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(244,52): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\vector(716,10): message : see declaration of 'std::vector<std::string,std::allocator<std::string>>::push_back'
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(310,50): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(311,40): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(311,54): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(311,74): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\int.cpp(315,48): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
-  Generating Code...
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(59,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(62,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(65,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(68,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(71,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(74,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(77,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(80,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(83,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+  Project2.vcxproj -> C:\Users\shahd\source\repos\Project2\Debug\Project2.exe

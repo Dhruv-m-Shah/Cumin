@@ -5,6 +5,8 @@
 #include <math.h>
 #include <map>
 #include "int.h"
+#include "main.h"
+#include "lexer.h"
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/multiprecision/cpp_dec_float.hpp>
 using boost::multiprecision::cpp_int;
@@ -216,19 +218,24 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         exit(EXIT_FAILURE);
     }
     if ((AST->val).type == "PRINT") {
+        ostringstream oss;
         if ((AST->right)->val.type == "ID") {
             string whatType = FindType((AST->right->val).token);
             if (whatType == "num") {
                 cpp_int toPrint = interpreter(AST->right, statements);
-                output_stream->string_output.push_back(toPrint);
+                oss << toPrint << endl;
+                string str = oss.str();
+                output_stream1->string_output.push_back(str);
             }
             else if (whatType == "flo") {
                 cpp_dec_float_50 toPrint = interpreter_floating(AST->right, statements);
-                output_stream->string_output.push_back(toPrint);
+                oss << toPrint << endl;
+                string str = oss.str();
+                output_stream1->string_output.push_back(str);
             }
             else if (whatType == "str") {
                 string toPrint = interpreter_string(AST->right, statements);
-                output_stream->string_output.push_back(toPrint);
+                output_stream1->string_output.push_back(toPrint);
             }
             else { // Unknown type, throw an error, implement when doing error coding.
 
@@ -237,20 +244,27 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         }
         else if ((AST->right)->val.type == "NUM") {
             cpp_int toPrint = interpreter(AST->right, statements);
-            output_stream->string_output.push_back(toPrint);
+            cout << toPrint << endl;
+            oss << toPrint << endl;
+            string str = oss.str();
+            cout << str << endl;
+            output_stream1->string_output.push_back(str);
+            cout << output_stream1->string_output.size() << endl;
         }
         else if ((AST->right)->val.type == "DECIMAL") {
             cpp_dec_float_50 toPrint = interpreter_floating(AST->right, statements);
-            output_stream->string_output.push_back(toPrint);
+            oss << toPrint << endl;
+            string str = oss.str();
+            output_stream1->string_output.push_back(str);
         }
         else if ((AST->right)->val.type == "STRING") {
             string toPrint = interpreter_string(AST->right, statements);
-            output_stream->string_output.push_back(toPrint);
+            output_stream1->string_output.push_back(toPrint);
         }
         else { // Unknown type, throw an error, implement when doing error coding.
 
         }
-        
+        return cpp_int(-1);
     }
     if ((AST->val).type == "NUM") {
         return cpp_int((AST->val).token);
