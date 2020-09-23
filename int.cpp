@@ -88,14 +88,14 @@ bool varExist(string id) {
     return false;
 }
 
-string FindType(string id) {
-    if (numbers.count(id) != 0) {
+string FindType(string id, functionDetails* statements) {
+    if (statements->numbers.count(id) != 0) {
         return "num";
     }
-    else if (decimals.count(id) != 0) {
+    else if (statements->decimals.count(id) != 0) {
         return "flo";
     }
-    else if (strings.count(id) != 0) {
+    else if (statements->strings.count(id) != 0) {
         return "strings";
     }
     string temp = id.substr(0, 3);
@@ -220,7 +220,8 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
     if ((AST->val).type == "PRINT") {
         ostringstream oss;
         if ((AST->right)->val.type == "ID") {
-            string whatType = FindType((AST->right->val).token);
+            cout << (AST->right->val).token << endl;
+            string whatType = FindType((AST->right->val).token, statements);
             if (whatType == "num") {
                 cpp_int toPrint = interpreter(AST->right, statements);
                 oss << toPrint << endl;
@@ -285,7 +286,7 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         return statements->numbers[(AST->val).token];
     }
     if ((AST->val).token == "=") {
-        string whatType = FindType((AST->left->val).token);
+        string whatType = FindType((AST->left->val).token, statements);
         string varName = FindName((AST->left->val).token);
         if (whatType == "flo") {
             statements->decimals[varName] = interpreter_floating(AST->right, statements);

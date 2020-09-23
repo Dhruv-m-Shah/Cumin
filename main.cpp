@@ -145,9 +145,11 @@ public:
 				string outputString = "";
 				cout << output_stream1->string_output.size() << endl;
 				for (int i = 0; i < output_stream1->string_output.size(); i++) {
+					cout << output_stream1->string_output[i] << endl;
 					outputString += output_stream1->string_output[i] + " | "; // find a better way to seperate input! URGENT.
 				}
-				ws.sendFrame("outputString", n, flags);
+				ws.sendFrame(&output_stream1->string_output, n, flags);
+				delete output_stream1;
 				break;
 			} while (n > 0 && (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
 			app.logger().information("WebSocket connection closed.");
