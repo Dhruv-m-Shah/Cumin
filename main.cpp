@@ -27,8 +27,9 @@
 #include "Poco/Format.h"
 #include "lexer.h";
 #include "main.h";
-#include <iostream>;
+#include <boost/locale.hpp>
 #include<vector>;
+#include <iostream>;
 
 using namespace std;
 using Poco::Net::ServerSocket;
@@ -148,8 +149,10 @@ public:
 					cout << output_stream1->string_output[i] << endl;
 					outputString += output_stream1->string_output[i] + " | "; // find a better way to seperate input! URGENT.
 				}
-				ws.sendFrame(&output_stream1->string_output, n, flags);
+				std::string utf8_string = boost::locale::conv::to_utf<char>("test", "ISO-8859-15");
+				ws.sendFrame(&utf8_string, utf8_string.length(), flags);
 				delete output_stream1;
+				
 				break;
 			} while (n > 0 && (flags & WebSocket::FRAME_OP_BITMASK) != WebSocket::FRAME_OP_CLOSE);
 			app.logger().information("WebSocket connection closed.");
@@ -292,6 +295,7 @@ protected:
 			// Stop the HTTPServer
 			srv.stop();
 		}
+		_CrtDumpMemoryLeaks();
 		return Application::EXIT_OK;
 	}
 

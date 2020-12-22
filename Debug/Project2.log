@@ -1,15 +1,15 @@
 ﻿  main.cpp
 C:\Users\shahd\source\repos\Project2\Project2\main.cpp(28,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\shahd\source\repos\Project2\Project2\main.cpp(29,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(30,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\shahd\source\repos\Project2\Project2\main.cpp(31,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(59,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(62,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(65,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(68,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(71,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(74,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(77,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(80,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
-C:\Users\shahd\source\repos\Project2\Project2\main.cpp(83,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(32,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(60,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(63,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(66,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(69,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(72,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(75,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(78,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(81,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
+C:\Users\shahd\source\repos\Project2\Project2\main.cpp(84,46): warning C4244: '+=': conversion from 'double' to '__int64', possible loss of data
   Project2.vcxproj -> C:\Users\shahd\source\repos\Project2\Debug\Project2.exe

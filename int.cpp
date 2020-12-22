@@ -1,3 +1,6 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -263,7 +266,7 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
             output_stream1->string_output.push_back(toPrint);
         }
         else { // Unknown type, throw an error, implement when doing error coding.
-
+            
         }
         return cpp_int(-1);
     }
