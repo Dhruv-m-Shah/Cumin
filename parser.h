@@ -5,10 +5,7 @@
 #include "lexer.h"
 #include <string>
 #include <vector>
-#include <boost/multiprecision/cpp_int.hpp>
-#include <boost/multiprecision/cpp_dec_float.hpp>
-using boost::multiprecision::cpp_int;
-using boost::multiprecision::cpp_dec_float_50;
+#include "../../../gmp-6.1.2/gmp.h"
 
 struct node {
     bool unary;
@@ -16,11 +13,15 @@ struct node {
     node* right;
     TOKEN val;
 };
+struct gmpWrapper {
+	mpz_t integer;
+	mpf_t floatingPoint;
+};
 struct functionDetails {
     std::vector<node*> statements;
-    std::map<std::string, cpp_int> numbers;
+    std::map<std::string, gmpWrapper> numbers;
     std::map<std::string, std::string> strings;
-    std::map<std::string, cpp_dec_float_50> decimals;
+    std::map<std::string, gmpWrapper> decimals;
 };
 
 std::vector<functionDetails> program(std::vector<TOKEN>tokened, std::vector<functionDetails> functions);

@@ -1,6 +1,5 @@
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
-#include <crtdbg.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,18 +9,12 @@
 #include "int.h"
 #include "main.h"
 #include "lexer.h"
-#include <boost/multiprecision/cpp_int.hpp>
-#include <boost/multiprecision/cpp_dec_float.hpp>
-using boost::multiprecision::cpp_int;
-using boost::multiprecision::cpp_dec_float_50;
-cpp_int i("123456789012345678901234567890");
-cpp_int test1123("123123123123");
 using namespace std;
 
 std::vector<vars> v;
-map<string, cpp_int> numbers;
+map<string, mpz_t> numbers;
 map<string, string> strings;
-map<string, cpp_dec_float_50> decimals;
+map<string, mpf_t> decimals;
 
 
 std::vector<int> test;
@@ -65,7 +58,7 @@ long long ConvertToInt(string integer) {
             ans += 6 * pow(10, integer.size() - 1 - i);
         }
         if (integer[i] == '7') {
-            ans += 7 * pow(10, integer.size() - 1 - i);
+           ans += 7 * pow(10, integer.size() - 1 - i);
         }
         if (integer[i] == '8') {
             ans += 8 * pow(10, integer.size() - 1 - i);
@@ -156,7 +149,7 @@ string interpreter_string(node* AST, functionDetails *statements) {
 }
 
 
-cpp_dec_float_50 interpreter_floating(node* AST, functionDetails *statements) {
+gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
     if ((AST->val).type == "STRING") {
         cerr << "STRING type cannot be assigned or operated with DECIMAL type" << endl;
         exit(EXIT_FAILURE);
@@ -167,14 +160,21 @@ cpp_dec_float_50 interpreter_floating(node* AST, functionDetails *statements) {
     }
 
     if ((AST->val).type == "DECIMAL") {
-        return cpp_dec_float_50((AST->val).token);
+	gmpWrapper temp;
+	char char_array[(AST->val).token.length() + 1];
+	strcpy(char_array, (AST->val).token.c_str());
+        mpf_set_str(temp.floatingPoint, char_array, 10);
+	return temp;
     }
     if (AST->unary) {
         if ((AST->val).token == "+") {
             return interpreter_floating(AST->left, statements);
         }
         else {
-            return cpp_dec_float_50(-1) * interpreter_floating(AST->left, statements);
+	    gmpWrapper temp;
+	    mpf_set_str(temp.floatingPoint, "-1", 10);
+            mpf_mul(temp.floatingPoint, temp.floatingPoint, interpreter_floating(AST->left, statements).floatingPoint);
+	    return temp;
         }
     }
     if ((AST->val).type == "ID") {
@@ -186,7 +186,8 @@ cpp_dec_float_50 interpreter_floating(node* AST, functionDetails *statements) {
         }
         if ((AST->right->val).type == "STRING") {
             statements->strings[(AST->left->val).token] = (AST->right->val).token; // Assignment for strings.
-            return -1;
+            gmpWrapper temp;
+	    return temp;
         }
         else {
             statements->decimals[(AST->left->val).token] = interpreter_floating(AST->right, statements);
@@ -194,24 +195,27 @@ cpp_dec_float_50 interpreter_floating(node* AST, functionDetails *statements) {
         }
     }
 
-    cpp_dec_float_50 leftVal = interpreter_floating(AST->left, statements);
-    cpp_dec_float_50 rightVal = interpreter_floating(AST->right, statements);
-
+    gmpWrapper leftVal = interpreter_floating(AST->left, statements);
+    gmpWrapper rightVal = interpreter_floating(AST->right, statements);
+    gmpWrapper temp;
     if ((AST->val).token == "+") {
-        return leftVal + rightVal;
+        mpf_add(temp.floatingPoint, leftVal.floatingPoint, rightVal.floatingPoint);
     }
     if ((AST->val).token == "-") {
-        return leftVal - rightVal;
+	mpf_sub(temp.floatingPoint, leftVal.floatingPoint, rightVal.floatingPoint);
     }
     if ((AST->val).token == "*") {
-        return leftVal * rightVal;
+	mpf_mul(temp.floatingPoint, leftVal.floatingPoint, rightVal.floatingPoint);
     }
     if ((AST->val).token == "/") {
-        return leftVal / rightVal;
+	mpf_div(temp.floatingPoint, leftVal.floatingPoint, rightVal.floatingPoint);
     }
+    return temp;
 }
 
-cpp_int interpreter(node* AST, functionDetails *statements) {
+outputStr* output_stream1;
+
+gmpWrapper interpreter(node* AST, functionDetails *statements) {
     if ((AST->val).type == "STRING") {
         cerr << "string type cannot be assigned or operated with NUM type" << endl;
         exit(EXIT_FAILURE);
@@ -226,16 +230,24 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
             cout << (AST->right->val).token << endl;
             string whatType = FindType((AST->right->val).token, statements);
             if (whatType == "num") {
-                cpp_int toPrint = interpreter(AST->right, statements);
-                oss << toPrint << endl;
-                string str = oss.str();
+                gmpWrapper toPrint = interpreter(AST->right, statements);
+		char * temp = mpz_get_str(NULL, 10, toPrint.integer);
+                string str = temp;
                 output_stream1->string_output.push_back(str);
             }
             else if (whatType == "flo") {
-                cpp_dec_float_50 toPrint = interpreter_floating(AST->right, statements);
-                oss << toPrint << endl;
-                string str = oss.str();
+                gmpWrapper toPrint = interpreter_floating(AST->right, statements);
+		char * temp = new char[1025];
+		for(int i = 0; i < 1025; i++) temp[i] = '!';
+		mp_exp_t exp;
+		mpf_get_str(temp, &exp, 10, 10, toPrint.floatingPoint);
+                string str = "";
+		for(int i = 0;  i < 1025; i++){
+			if(temp[i] == '!') break;
+			str = str + temp[i];
+		}
                 output_stream1->string_output.push_back(str);
+		delete[] temp;
             }
             else if (whatType == "str") {
                 string toPrint = interpreter_string(AST->right, statements);
@@ -247,18 +259,23 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
 
         }
         else if ((AST->right)->val.type == "NUM") {
-            cpp_int toPrint = interpreter(AST->right, statements);
-            cout << toPrint << endl;
-            oss << toPrint << endl;
-            string str = oss.str();
-            cout << str << endl;
+            gmpWrapper toPrint = interpreter(AST->right, statements);
+            char * temp = mpz_get_str(NULL, 10, toPrint.integer);
+            string str = temp;
             output_stream1->string_output.push_back(str);
-            cout << output_stream1->string_output.size() << endl;
         }
         else if ((AST->right)->val.type == "DECIMAL") {
-            cpp_dec_float_50 toPrint = interpreter_floating(AST->right, statements);
-            oss << toPrint << endl;
-            string str = oss.str();
+            gmpWrapper toPrint = interpreter_floating(AST->right, statements);
+	    char * temp = new char[1025];
+	    for(int i = 0; i < 1025; i++) temp[i] = '!';
+	    mp_exp_t exp;
+	    mpf_get_str(temp, &exp, 10, 10, toPrint.floatingPoint);
+            string str = "";
+	    for(int i = 0; i < 1025; i++){
+            	if(temp[i] == '!') break;
+            	str = str + temp[i];
+            }
+            delete[] temp;
             output_stream1->string_output.push_back(str);
         }
         else if ((AST->right)->val.type == "STRING") {
@@ -268,17 +285,25 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         else { // Unknown type, throw an error, implement when doing error coding.
             
         }
-        return cpp_int(-1);
+	gmpWrapper n;
+	mpz_set_str(n.integer, "-1", 10);
+        return n;
     }
     if ((AST->val).type == "NUM") {
-        return cpp_int((AST->val).token);
+	    gmpWrapper temp;
+	    char char_array[(AST->val).token.length() + 1];
+	    strcpy(char_array, (AST->val).token.c_str());
+	    mpz_set_str(temp.integer, char_array, 10);
+            return temp;
     }
     if (AST->unary) {
         if ((AST->val).token == "+") {
             return interpreter(AST->left, statements);
         }
         else {
-            return cpp_int(-1) * interpreter(AST->left, statements);
+	    gmpWrapper temp;
+	    mpz_mul_ui(temp.integer, interpreter(AST->left, statements).integer, -1);
+            return temp;
         }
     }
     if ((AST->val).type == "ID") {
@@ -293,11 +318,15 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         string varName = FindName((AST->left->val).token);
         if (whatType == "flo") {
             statements->decimals[varName] = interpreter_floating(AST->right, statements);
-            return cpp_int(-1);
+            gmpWrapper n;
+            mpz_set_str(n.integer, "-1", 10);
+	    return n;
         }
         if (whatType == "str") {
             statements->strings[varName] = interpreter_string(AST->right, statements); // Assignment for strings.
-            return cpp_int(-1);
+            gmpWrapper n;
+            mpz_set_str(n.integer, "-1", 10);
+            return n; 
         }
         else { // Otherwise its a number.
             statements->numbers[varName] = interpreter(AST->right, statements);
@@ -305,25 +334,25 @@ cpp_int interpreter(node* AST, functionDetails *statements) {
         }
     }
 
-    cpp_int leftVal = interpreter(AST->left, statements);
-    cpp_int rightVal = interpreter(AST->right, statements);
-
+    gmpWrapper  leftVal = interpreter(AST->left, statements);
+    gmpWrapper rightVal = interpreter(AST->right, statements);
+    gmpWrapper temp;
     if ((AST->val).token == "+") {
-        return leftVal + rightVal;
+        mpz_add(temp.integer, leftVal.integer, rightVal.integer);
     }
     if ((AST->val).token == "-") {
-        return leftVal - rightVal;
+        mpz_sub(temp.integer, leftVal.integer, rightVal.integer);
     }
     if ((AST->val).token == "*") {
-        return leftVal * rightVal;
+        mpz_mul(temp.integer, leftVal.integer, rightVal.integer);
     }
     if ((AST->val).token == "/") {
-        return leftVal / rightVal;
+        mpz_tdiv_q(temp.integer, leftVal.integer, rightVal.integer);
     }
+    return temp;
 }
 
 void CompoundStatement(vector<functionDetails> statement_list) {
-    cout << "TEST" << endl;
     for (long long j = 0; j < statement_list.size(); j++) {
         for (long long i = 0; i < statement_list[j].statements.size(); i++) {
             interpreter(statement_list[j].statements[i], &statement_list[j]);
