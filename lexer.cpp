@@ -117,7 +117,7 @@ string RemoveWhitespace(string input, long long length) {
     return newString;
 }
 
-void tokenize(string input, vector<TOKEN> tokened) {
+void tokenize(string input, vector<TOKEN> tokened, outputStr *output_stream1) {
     string scope = "GLOBAL"; // Inital scope is set globally.
     map<string, long long> functionMapper;
     long long functionCount = 0;
@@ -267,6 +267,6 @@ void tokenize(string input, vector<TOKEN> tokened) {
     //  x = 2.
     // end
     vector<functionDetails> functions;
-    CompoundStatement(program(tokened, functions));
+    CompoundStatement(program(tokened, functions), output_stream1);
 }
 

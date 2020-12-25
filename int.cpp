@@ -161,6 +161,7 @@ gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
 
     if ((AST->val).type == "DECIMAL") {
 	gmpWrapper temp;
+	mpf_init(temp.floatingPoint);
 	char char_array[(AST->val).token.length() + 1];
 	strcpy(char_array, (AST->val).token.c_str());
         mpf_set_str(temp.floatingPoint, char_array, 10);
@@ -172,6 +173,7 @@ gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
         }
         else {
 	    gmpWrapper temp;
+	    mpf_init(temp.floatingPoint);
 	    mpf_set_str(temp.floatingPoint, "-1", 10);
             mpf_mul(temp.floatingPoint, temp.floatingPoint, interpreter_floating(AST->left, statements).floatingPoint);
 	    return temp;
@@ -187,6 +189,7 @@ gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
         if ((AST->right->val).type == "STRING") {
             statements->strings[(AST->left->val).token] = (AST->right->val).token; // Assignment for strings.
             gmpWrapper temp;
+	    mpf_init(temp.floatingPoint);
 	    return temp;
         }
         else {
@@ -198,6 +201,7 @@ gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
     gmpWrapper leftVal = interpreter_floating(AST->left, statements);
     gmpWrapper rightVal = interpreter_floating(AST->right, statements);
     gmpWrapper temp;
+    mpf_init(temp.floatingPoint);
     if ((AST->val).token == "+") {
         mpf_add(temp.floatingPoint, leftVal.floatingPoint, rightVal.floatingPoint);
     }
@@ -213,9 +217,8 @@ gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
     return temp;
 }
 
-outputStr* output_stream1;
 
-gmpWrapper interpreter(node* AST, functionDetails *statements) {
+gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * output_stream1) {
     if ((AST->val).type == "STRING") {
         cerr << "string type cannot be assigned or operated with NUM type" << endl;
         exit(EXIT_FAILURE);
@@ -225,12 +228,11 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
         exit(EXIT_FAILURE);
     }
     if ((AST->val).type == "PRINT") {
-        ostringstream oss;
         if ((AST->right)->val.type == "ID") {
             cout << (AST->right->val).token << endl;
             string whatType = FindType((AST->right->val).token, statements);
             if (whatType == "num") {
-                gmpWrapper toPrint = interpreter(AST->right, statements);
+                gmpWrapper toPrint = interpreter(AST->right, statements, output_stream1);
 		char * temp = new char[1025];
 		mpz_get_str(temp, 10, toPrint.integer);
                 string str = "";
@@ -262,7 +264,7 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
             }
         }
         else if ((AST->right)->val.type == "NUM") {
-            gmpWrapper toPrint = interpreter(AST->right, statements);
+            gmpWrapper toPrint = interpreter(AST->right, statements, output_stream1);
 	    char * temp = new char[1025];
             mpz_get_str(temp, 10, toPrint.integer);
             string str = "";
@@ -302,18 +304,20 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
 	    gmpWrapper temp;
 	    mpz_init(temp.integer);
 	    char char_array[(AST->val).token.length() + 1];
-	    strcpy(char_array, (AST->val).token.c_str());
+	   // strcpy(char_array, (AST->val).token.c_str());
+	    for(int i = 0; i < (AST->val).token.length(); i++) char_array[i] = ((AST->val).token[i]);
+	    char_array[(AST->val).token.length()] = '\0';
 	    mpz_set_str(temp.integer, char_array, 10);
             return temp;
     }
     if (AST->unary) {
         if ((AST->val).token == "+") {
-            return interpreter(AST->left, statements);
+            return interpreter(AST->left, statements, output_stream1);
         }
         else {
 	    gmpWrapper temp;
 	    mpz_init(temp.integer);
-	    mpz_mul_ui(temp.integer, interpreter(AST->left, statements).integer, -1);
+	    mpz_mul_ui(temp.integer, interpreter(AST->left, statements, output_stream1).integer, -1);
             return temp;
         }
     }
@@ -342,13 +346,13 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
             return n; 
         }
         else { // Otherwise its a number.
-            statements->numbers[varName] = interpreter(AST->right, statements);
+            statements->numbers[varName] = interpreter(AST->right, statements, output_stream1);
             return  statements->numbers[varName];
         }
     }
 
-    gmpWrapper  leftVal = interpreter(AST->left, statements);
-    gmpWrapper rightVal = interpreter(AST->right, statements);
+    gmpWrapper  leftVal = interpreter(AST->left, statements, output_stream1);
+    gmpWrapper rightVal = interpreter(AST->right, statements, output_stream1);
     gmpWrapper temp;
     mpz_init(temp.integer);
     if ((AST->val).token == "+") {
@@ -366,14 +370,13 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
     return temp;
 }
 
-void CompoundStatement(vector<functionDetails> statement_list) {
+void CompoundStatement(vector<functionDetails> statement_list, outputStr *output_stream1) {
     for (long long j = 0; j < statement_list.size(); j++) {
         for (long long i = 0; i < statement_list[j].statements.size(); i++) {
-            interpreter(statement_list[j].statements[i], &statement_list[j]);
+            interpreter(statement_list[j].statements[i], &statement_list[j], output_stream1);
         }
     }
     for (long long i = 0; i < statement_list[0].statements.size(); i++) {
         deleteAST(statement_list[0].statements[i]);
     }
-    
 }

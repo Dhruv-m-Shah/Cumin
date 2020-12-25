@@ -4,7 +4,7 @@
 #include "parser.h"
 #include <string>
 #include <vector>
-
+#include <cstring>
 
 class vars {
 public:
@@ -13,14 +13,14 @@ public:
     long long val;
 };
 
-class outputStr {
-public:
-    std::vector<mpz_t> integer_output;
-    std::vector<std::string> string_output;
-    std::vector<mpf_t> float_output;
-};
+//class outputStr {
+//public:
+//    std::vector<mpz_t> integer_output;
+//    std::vector<std::string> string_output;
+//    std::vector<mpf_t> float_output;
+//};
 
-void CompoundStatement(std::vector<functionDetails>);
+void CompoundStatement(std::vector<functionDetails>, outputStr * output_stream1);
 
 
 

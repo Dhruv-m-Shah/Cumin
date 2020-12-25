@@ -1,9 +1,9 @@
 <script src = "function.js"></script>
 
 	<script>
-		var js_wrapped_interpretor=Module.cwrap("interpretorWrapper", null, ["string"]);
+		var js_wrapped_interpretor=Module.cwrap("interpretorWrapper", "string", ["string"]);
 		function pressBtn(){
-			js_wrapped_interpretor("start num x = 2 + 2? end");
+			console.log(js_wrapped_interpretor("start num x = 2? print(1232)? end"));
 			console.log("TEST");
 		}
 	</script>

@@ -2,7 +2,7 @@
 #define LEXER_H_INCLUDED
 #include <vector>
 #include <iostream>
-
+#include "main.h"
 
 class TOKEN {
 public:
@@ -11,6 +11,6 @@ public:
     std::string scope; // What realm does this variable lie in? 
 };
 
-void tokenize(std::string input, std::vector<TOKEN> tokened);
+void tokenize(std::string input, std::vector<TOKEN> tokened, outputStr * output_stream1);
 
 #endif // LEXER_H_INCLUDED
