@@ -231,19 +231,24 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
             string whatType = FindType((AST->right->val).token, statements);
             if (whatType == "num") {
                 gmpWrapper toPrint = interpreter(AST->right, statements);
-		char * temp = mpz_get_str(NULL, 10, toPrint.integer);
-                string str = temp;
+		char * temp = new char[1025];
+		mpz_get_str(temp, 10, toPrint.integer);
+                string str = "";
+		for(int i = 0;  i < 1025; i++){
+                        if(temp[i] == '\0') break;
+                        str = str + temp[i];
+                }
                 output_stream1->string_output.push_back(str);
+		delete[] temp;
             }
             else if (whatType == "flo") {
                 gmpWrapper toPrint = interpreter_floating(AST->right, statements);
 		char * temp = new char[1025];
-		for(int i = 0; i < 1025; i++) temp[i] = '!';
 		mp_exp_t exp;
 		mpf_get_str(temp, &exp, 10, 10, toPrint.floatingPoint);
                 string str = "";
 		for(int i = 0;  i < 1025; i++){
-			if(temp[i] == '!') break;
+			if(temp[i] == '\0') break;
 			str = str + temp[i];
 		}
                 output_stream1->string_output.push_back(str);
@@ -254,25 +259,28 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
                 output_stream1->string_output.push_back(toPrint);
             }
             else { // Unknown type, throw an error, implement when doing error coding.
-
             }
-
         }
         else if ((AST->right)->val.type == "NUM") {
             gmpWrapper toPrint = interpreter(AST->right, statements);
-            char * temp = mpz_get_str(NULL, 10, toPrint.integer);
-            string str = temp;
+	    char * temp = new char[1025];
+            mpz_get_str(temp, 10, toPrint.integer);
+            string str = "";
+	    for(int i = 0; i < 1025; i++){
+	    	if(temp[i] == '\0') break;
+		str = str + temp[i];
+	    }
             output_stream1->string_output.push_back(str);
+	    delete[] temp;
         }
         else if ((AST->right)->val.type == "DECIMAL") {
             gmpWrapper toPrint = interpreter_floating(AST->right, statements);
 	    char * temp = new char[1025];
-	    for(int i = 0; i < 1025; i++) temp[i] = '!';
 	    mp_exp_t exp;
 	    mpf_get_str(temp, &exp, 10, 10, toPrint.floatingPoint);
             string str = "";
 	    for(int i = 0; i < 1025; i++){
-            	if(temp[i] == '!') break;
+            	if(temp[i] == '\0') break;
             	str = str + temp[i];
             }
             delete[] temp;
@@ -286,11 +294,13 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
             
         }
 	gmpWrapper n;
+	mpz_init(n.integer);
 	mpz_set_str(n.integer, "-1", 10);
         return n;
     }
     if ((AST->val).type == "NUM") {
 	    gmpWrapper temp;
+	    mpz_init(temp.integer);
 	    char char_array[(AST->val).token.length() + 1];
 	    strcpy(char_array, (AST->val).token.c_str());
 	    mpz_set_str(temp.integer, char_array, 10);
@@ -302,6 +312,7 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
         }
         else {
 	    gmpWrapper temp;
+	    mpz_init(temp.integer);
 	    mpz_mul_ui(temp.integer, interpreter(AST->left, statements).integer, -1);
             return temp;
         }
@@ -319,12 +330,14 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
         if (whatType == "flo") {
             statements->decimals[varName] = interpreter_floating(AST->right, statements);
             gmpWrapper n;
+	    mpz_init(n.integer);
             mpz_set_str(n.integer, "-1", 10);
 	    return n;
         }
         if (whatType == "str") {
             statements->strings[varName] = interpreter_string(AST->right, statements); // Assignment for strings.
             gmpWrapper n;
+	    mpz_init(n.integer);
             mpz_set_str(n.integer, "-1", 10);
             return n; 
         }
@@ -337,6 +350,7 @@ gmpWrapper interpreter(node* AST, functionDetails *statements) {
     gmpWrapper  leftVal = interpreter(AST->left, statements);
     gmpWrapper rightVal = interpreter(AST->right, statements);
     gmpWrapper temp;
+    mpz_init(temp.integer);
     if ((AST->val).token == "+") {
         mpz_add(temp.integer, leftVal.integer, rightVal.integer);
     }

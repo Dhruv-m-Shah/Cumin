@@ -6,7 +6,7 @@
 using namespace std;
 				
 int main(){
-	string test = "start int x=1+1? end";
+	string test = "start num x=1+1? end";
 	vector<TOKEN> temp;
 	tokenize(test, temp);
 }
