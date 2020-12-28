@@ -1,4 +1,3 @@
-#define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <iostream>
 #include <string>
@@ -147,7 +146,6 @@ string interpreter_string(node* AST, functionDetails *statements) {
         return leftVal + rightVal;
     }
 }
-
 
 gmpWrapper interpreter_floating(node* AST, functionDetails *statements) {
     if ((AST->val).type == "STRING") {

@@ -20,8 +20,19 @@ extern "C"{
 		string str = string(code);
 		vector<TOKEN> temp;
 		tokenize(str, temp, output_stream1);
-		char temp1[output_stream1->string_output.size() + 1];
-		strcpy(temp1, output_stream1->string_output[0].c_str());
+		unsigned long long charArrayLen = 0;
+		string seperator = "abhashcumin420ab~~ab~~cumin19065";
+		string tempStr = "";
+		for(int i = 0; i < output_stream1->string_output.size(); i++){
+			charArrayLen += output_stream1->string_output[i].size() + 32;
+			tempStr += seperator;
+			tempStr += output_stream1->string_output[i];
+		}	
+		char temp1[charArrayLen];
+		for(int i = 0; i < tempStr.size(); i++){
+			temp1[i] = tempStr[i];
+		}
+		temp1[tempStr.size()] = '\0';
 		delete output_stream1;
 		return temp1;
 	}

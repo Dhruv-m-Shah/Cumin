@@ -3,7 +3,7 @@
 	<script>
 		var js_wrapped_interpretor=Module.cwrap("interpretorWrapper", "string", ["string"]);
 		function pressBtn(){
-			console.log(js_wrapped_interpretor("start num x = 2? print(1232)? end"));
+			console.log(js_wrapped_interpretor("start flo x = 1.0 + 1.0? print(x)? end"));
 			console.log("TEST");
 		}
 	</script>
