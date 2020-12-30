@@ -249,6 +249,9 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
 		mpf_get_str(temp, &exp, 10, 10, toPrint.floatingPoint);
                 string str = "";
 		for(int i = 0;  i < 1025; i++){
+			if(i == exp){
+                           str += ".";
+		        }
 			if(temp[i] == '\0') break;
 			str = str + temp[i];
 		}
@@ -282,6 +285,9 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
 	    mpf_get_str(temp, &exp, 10, 10, toPrint.floatingPoint);
             string str = "";
 	    for(int i = 0; i < 1025; i++){
+		if(i == exp){
+			str += ".";
+		}
             	if(temp[i] == '\0') break;
             	str = str + temp[i];
             }
@@ -371,6 +377,7 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
 }
 
 void CompoundStatement(vector<functionDetails> statement_list, outputStr *output_stream1) {
+    mpf_set_default_prec(10020);
     for (long long j = 0; j < statement_list.size(); j++) {
         for (long long i = 0; i < statement_list[j].statements.size(); i++) {
             interpreter(statement_list[j].statements[i], &statement_list[j], output_stream1);
