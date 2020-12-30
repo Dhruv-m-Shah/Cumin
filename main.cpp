@@ -7,7 +7,7 @@
 using namespace std;
 outputStr* output_stream1 = new outputStr;		
 int main(){
-	string test = "start print(2)? end";
+	string test = "start num z = 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999? end";
 	vector<TOKEN> temp;
 	tokenize(test, temp, output_stream1);
 	std::cout<<output_stream1->string_output[0]<<std::endl;

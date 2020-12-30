@@ -231,10 +231,11 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
             string whatType = FindType((AST->right->val).token, statements);
             if (whatType == "num") {
                 gmpWrapper toPrint = interpreter(AST->right, statements, output_stream1);
-		char * temp = new char[1025];
+		size_t sz = mpz_sizeinbase(toPrint.integer, 10);
+		char * temp = new char[sz];
 		mpz_get_str(temp, 10, toPrint.integer);
                 string str = "";
-		for(int i = 0;  i < 1025; i++){
+		for(int i = 0;  i < sz; i++){
                         if(temp[i] == '\0') break;
                         str = str + temp[i];
                 }
@@ -263,10 +264,11 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
         }
         else if ((AST->right)->val.type == "NUM") {
             gmpWrapper toPrint = interpreter(AST->right, statements, output_stream1);
-	    char * temp = new char[1025];
+	    size_t sz = mpz_sizeinbase(toPrint.integer, 10);
+	    char * temp = new char[sz];
             mpz_get_str(temp, 10, toPrint.integer);
             string str = "";
-	    for(int i = 0; i < 1025; i++){
+	    for(int i = 0; i < sz; i++){
 	    	if(temp[i] == '\0') break;
 		str = str + temp[i];
 	    }
