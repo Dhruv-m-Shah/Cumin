@@ -94,7 +94,7 @@ bool IsEndStatement(string endstatement) {
     return endstatement == "end";
 }
 
-string RemoveWhitespace(string input, long long length) {
+string RemoveWhitespace(string &input, long long length) {
     string newString = "";
     int quotationDetector = 0;
 
@@ -122,6 +122,7 @@ void tokenize(string input, vector<TOKEN> tokened, outputStr *output_stream1) {
     map<string, long long> functionMapper;
     long long functionCount = 0;
     input = RemoveWhitespace(input, input.length());
+    cout<<input<<endl;
     int index = 0;
     while (index < input.size()) {
         DisplayToken(tokened);
