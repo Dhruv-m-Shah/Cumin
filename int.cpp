@@ -91,7 +91,7 @@ string FindType(string id, functionDetails* statements) {
         return "flo";
     }
     else if (statements->strings.count(id) != 0) {
-        return "strings";
+        return "str";
     }
     string temp = id.substr(0, 3);
     if (temp != "flo" && temp != "str" && temp != "num") {
@@ -229,6 +229,7 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
         if ((AST->right)->val.type == "ID") {
             cout << (AST->right->val).token << endl;
             string whatType = FindType((AST->right->val).token, statements);
+	    cout<<whatType<<endl;
             if (whatType == "num") {
                 gmpWrapper toPrint = interpreter(AST->right, statements, output_stream1);
 		size_t sz = mpz_sizeinbase(toPrint.integer, 10);
@@ -260,6 +261,8 @@ gmpWrapper interpreter(node* AST, functionDetails *statements, outputStr * outpu
             }
             else if (whatType == "str") {
                 string toPrint = interpreter_string(AST->right, statements);
+		cout<<toPrint<<endl;
+		cout<<"1234"<<endl;
                 output_stream1->string_output.push_back(toPrint);
             }
             else { // Unknown type, throw an error, implement when doing error coding.
